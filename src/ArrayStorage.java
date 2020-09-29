@@ -3,17 +3,17 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size = 0;
 
     void clear() {
-        int i = 0;
-        while (storage[i] != null & i < 10000) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
-            i = i + 1;
         }
+        size = size();
     }
 
     void save(Resume r) {
-        int i = size();
+        int i = size;
         if (i != 10000) {
             while (i != 0) {
                 storage[i] = storage[i - 1];
@@ -21,24 +21,16 @@ public class ArrayStorage {
             }
             storage[0] = r;
         }
+        size = size();
     }
 
     Resume get(String uuid) {
-
-        Resume[] nStorage = getAll();
-        int n = 0;
-        for (int i = 0; i < nStorage.length; i++){
-            if (nStorage[i].toString().equals(uuid)){
-                n = i;
-                break;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString().equals(uuid)) {
+                return storage[i];
             }
         }
-        if (n != 0){
-            return nStorage[n];
-        }
-        else {
-            return new Resume();
-        }
+        return null;
     }
 
     void delete(String uuid) {
@@ -49,25 +41,26 @@ public class ArrayStorage {
         while (storage[i] != null) {
             storage[i] = storage[i + 1];
         }
+        size = size();
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int i = size();
-        Resume[] nStorage = new Resume[i];
-        for (int j = 0; j < i; j++) {
-            nStorage[j] = storage[j];
+        Resume[] resumes = new Resume[size()];
+        for (int j = 0; j < size(); j++) {
+            resumes[j] = storage[j];
         }
-        return nStorage;
+        return resumes;
     }
 
     int size() {
-        int i = 0;
-        while (storage[i] != null & i < 10000) {
-            i = i + 1;
+        for (int i = 0; i < 10000; i++) {
+            if (storage[i] == null) {
+                return i;
+            }
         }
-        return i;
+        return 0;
     }
 }
