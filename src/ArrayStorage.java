@@ -9,7 +9,7 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
-        size = size();
+        size = 0;
     }
 
     void save(Resume r) {
@@ -21,7 +21,7 @@ public class ArrayStorage {
             }
             storage[0] = r;
         }
-        size = size();
+        size = size+1;
     }
 
     Resume get(String uuid) {
@@ -41,7 +41,7 @@ public class ArrayStorage {
         for (int j = i; j < size; j++) {
             storage[j] = storage[j + 1];
         }
-        size = size();
+        size = size-1;
     }
 
     /**
@@ -56,10 +56,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        int i = 0;
-        while (storage[i] != null) {
-            i = i + 1;
-        }
-        return i;
+       return size;
     }
 }
