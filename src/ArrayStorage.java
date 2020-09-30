@@ -38,8 +38,8 @@ public class ArrayStorage {
         while (!storage[i].toString().equals(uuid) & i < 10000) {
             i = i + 1;
         }
-        while (storage[i] != null) {
-            storage[i] = storage[i + 1];
+        for (int j = i; j < size; j++) {
+            storage[j] = storage[j + 1];
         }
         size = size();
     }
@@ -56,11 +56,10 @@ public class ArrayStorage {
     }
 
     int size() {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                return i;
-            }
+        int i = 0;
+        while (storage[i] !=  null){
+            i = i + 1;
         }
-        return 0;
+        return i;
     }
 }
