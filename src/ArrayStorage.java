@@ -13,15 +13,10 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        int i = size;
-        if (i != 10000) {
-            while (i != 0) {
-                storage[i] = storage[i - 1];
-                i = i - 1;
-            }
-            storage[0] = r;
+        if (size != 10000) {
+            storage[size] = r;
         }
-        size = size+1;
+        size++;
     }
 
     Resume get(String uuid) {
@@ -34,14 +29,15 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int i = 0;
-        while (!storage[i].toString().equals(uuid) & i < 10000) {
-            i = i + 1;
+        for (int i = 0; i < size; i++) {
+            if (storage.toString().equals(uuid)) {
+                for (int j = i; j < size; j++) {
+                    storage[j] = storage[j + 1];
+                }
+                break;
+            }
         }
-        for (int j = i; j < size; j++) {
-            storage[j] = storage[j + 1];
-        }
-        size = size-1;
+        size--;
     }
 
     /**
@@ -49,13 +45,13 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] resumes = new Resume[size()];
-        for (int j = 0; j < size(); j++) {
+        for (int j = 0; j < size; j++) {
             resumes[j] = storage[j];
         }
         return resumes;
     }
 
     int size() {
-       return size;
+        return size;
     }
 }
